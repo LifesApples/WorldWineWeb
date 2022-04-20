@@ -4,16 +4,19 @@ from psycopg2 import *
 conn= None
 cur = None
 
+
 try:
     #koden nedan kopplar till databasen
     #se postgres properties för att hitta rätt nycklar
+    import psycopg2
     conn = psycopg2.connect(
-                host = 'localhost',
-                database = 'pytest',
-                user = 'postgres',
-                password = 'madoka22')
+                host = 'pgserver.mau.se',
+                database = 'am4404',
+                user = 'am4404',
+                password = 'zxd0hy59')
 
     cur = conn.cursor()
+    
 
     #exekverar SQL queries
     #Syntax är samma som i SQL
