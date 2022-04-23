@@ -1,27 +1,51 @@
 from flask import Blueprint, render_template, request, flash
+import psycopg2
 
 auth = Blueprint('auth', __name__)
 
-import psycopg2
-
-try:
-    conn = psycopg2.connect(host = 'pgserver.mau.se',
+conn = psycopg2.connect(host = 'pgserver.mau.se',
                 database = 'am4404',
                 user = 'am4404',
                 password = 'zxd0hy59')
-    
-except Exception as error:
-    print(error)
+
+cur = conn.cursor()   
+
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
-    print("Tried logging in")
     if request.method == 'POST':
-        username = request.form.get("form2Example11")
-        print("Name was: " + str(username))
-        username = request.form.get("Password")
+        username = request.form.get("username")
+        print("Name was: " + username)
+        password = request.form.get("password1")
+        print("Password was: " + password)
         
+        
+        try:
+            conn = psycopg2.connect(host = 'pgserver.mau.se',
+                database = 'am4404',
+                user = 'am4404',
+                password = 'zxd0hy59')
+            cur = conn.cursor()
+            insert_script = 'SET search_path = "WorldWineWeb", am4404, public; Select * from users where username = %s and "password"= %s'
+            data = (username,password)
+            print("Testing: " + insert_script)
+            cur.execute(insert_script,data)
+            print("The number of parts: ", cur.rowcount)
+            conn.commit()
 
+            if cur.rowcount < 1:
+                flash("Wrong username or password", category="error")
+            else:
+                flash("Login sucessful!", category="success")
+            
+           
+            
+         
+
+        except Exception as error:
+            print(error)
+                
+     
     return render_template("login.html")
 
 @auth.route("/logout")
