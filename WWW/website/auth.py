@@ -36,7 +36,11 @@ def login():
 
 @auth.route("/logout")
 def loginout():
-    return "<p>Loginout</p>"
+     cur = conn.cursor()
+     insert_script = 'SET search_path = "WorldWineWeb", am4404, public; Select getaproducts(10)'
+     cur.execute(insert_script)
+     print("Returned products: " + str(cur.rowcount))
+     return "<p>Loginout</p>"
 
 
 @auth.route('/sign-up', methods=['GET', 'POST'])
