@@ -28,10 +28,6 @@ def login():
             else:
                 flash("Login sucessful!", category="success")
             
-           
-            
-         
-
         except Exception as error:
             print(error)
                 
