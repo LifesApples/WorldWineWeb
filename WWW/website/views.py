@@ -8,6 +8,7 @@ views = Blueprint('views', __name__)
 def home():
     return render_template("index.html")
 
+
 @views.route('/products')
 def product():
     print("Products found!")
@@ -34,3 +35,9 @@ insert_script = 'SET search_path = "WorldWineWeb", am4404, public; Select getall
 cur.execute(insert_script)
 print("Returned products: " + cur.rowcount)
 """
+=======
+@views.route('/products') 
+def product():
+    return render_template("products.html")
+
+
