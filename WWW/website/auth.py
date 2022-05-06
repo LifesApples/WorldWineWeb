@@ -1,14 +1,8 @@
+from unicodedata import name
 from flask import Blueprint, render_template, request, flash
-import psycopg2
+from db_connection import *
 
 auth = Blueprint('auth', __name__)
-
-conn = psycopg2.connect(host = 'pgserver.mau.se',
-                database = 'am4404',
-                user = 'am4404',
-                password = 'zxd0hy59')
-
-cur = conn.cursor()   
 
 
 @auth.route('/login', methods=['GET', 'POST'])
@@ -21,11 +15,7 @@ def login():
         
         
         try:
-            conn = psycopg2.connect(host = 'pgserver.mau.se',
-                database = 'am4404',
-                user = 'am4404',
-                password = 'zxd0hy59')
-            cur = conn.cursor()
+            
             insert_script = 'SET search_path = "WorldWineWeb", am4404, public; Select * from users where username = %s and "password"= %s'
             data = (username,password)
             print("Testing: " + insert_script)
