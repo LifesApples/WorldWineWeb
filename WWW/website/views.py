@@ -15,29 +15,23 @@ def product():
     cur = conn.cursor()
     insert_script = 'SET search_path = "WorldWineWeb", am4404, public; Select getproducts(10)'
     cur.execute(insert_script)
-    records = cur.fetchone()
-    liste = []
-    liste = list(records)
-
-    lista = str(liste).split(",")
-    for i in lista:
-        print(i)
-        print()
+    records = cur.fetchall()
+    data = []
+    data = list(records)
+    columns = []
+    rows = []
+    for i in enumerate(data):
+        ##Adds product attributes to a list
+        splitColumns = str(i).split(",")
+        splitColumns = [j.replace('"', '') for j in splitColumns] # remove quote from each element
+        splitColumns = [j.replace('(', '') for j in splitColumns] # remove quote from each element
+        splitColumns = [j.replace(')', '') for j in splitColumns] # remove quote from each element
+        splitColumns = [j.replace("'", '') for j in splitColumns] # remove quote from each element
+        print("Check: ",splitColumns)
+        ##Adds the product with its attributes to a new row
+        rows.append(splitColumns)
       
-    ##print("Returned: ", records)
     conn.commit()
-    return render_template("products.html")
-
-"""
-
-cur = conn.cursor()
-insert_script = 'SET search_path = "WorldWineWeb", am4404, public; Select getallproducts()'
-cur.execute(insert_script)
-print("Returned products: " + cur.rowcount)
-"""
-=======
-@views.route('/products') 
-def product():
-    return render_template("products.html")
+    return render_template("products.html", rows=rows)
 
 
