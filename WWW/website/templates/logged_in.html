@@ -45,38 +45,32 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                       <li class="nav-item">
                       <a class="nav-item nav-link" id="logout" href="/logout">Logga ut</a>
-                      <a class="nav-item nav-link" id="login" href="/login">Logga in</a>
-                      <a class="nav-item nav-link" id="signUp" href="/sign-up">Registera</a>
+                      <a class="nav-item nav-link" id="logout" href="#">Min profil</a>
                       </li>
                   </ul>
                   </div>
                 </div>
             </nav>
 
-            <div class="container-fluid">
-                <div class="row">
-                  <div class="col-md">
-                  </div>
-                  <div class="col-md-8">
-                    <h2>Produkter</h2>
-                    {% for i in content %}
-                      
-                    <div class="card" style="width: 18rem;">
-                      <img src="{{content.get(länkar)}}" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <h5 class="card-title">{{content.title}}</h5>
-                        <p class="card-text">{{content.desc}}</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                      </div>
-                    </div>
-                    {% endfor %}
-
-                  </div>
-                  <div class="col-md">
-                  </div>
-                </div>
-            </div>
-
+            {% with messages = get_flashed_messages(with_categories=true) %} {% if
+              messages %} {% for category, message in messages %} {% if category ==
+              'error' %}
+              <div class="alert alert-danger alter-dismissable fade show" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              {% else %}
+              <div class="alert alert-success alter-dismissable fade show" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              {% endif %} {% endfor %} {% endif %} {% endwith %}
+          
+              <div class="container">{% block content %} {% endblock %}</div>
 
             
             <footer class="bg-light text-center text-lg-start">

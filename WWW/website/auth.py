@@ -1,5 +1,5 @@
 from unicodedata import name
-from flask import Blueprint, render_template, request, flash
+from flask import Blueprint, render_template, request, flash, redirect, url_for
 from db_connection import *
 
 auth = Blueprint('auth', __name__)
@@ -13,7 +13,6 @@ def login():
         password = request.form.get("password1")
         print("Password was: " + password)
         
-        
         try:
             
             insert_script = 'SET search_path = "WorldWineWeb", am4404, public; Select * from users where username = %s and "password"= %s'
@@ -26,17 +25,17 @@ def login():
             if cur.rowcount < 1:
                 flash("Wrong username or password", category="error")
             else:
-                flash("Login sucessful!", category="success")
+                flash("Login sucessful!, Welcome" + username, category="success")
+                return render_template("logged_in.html")
             
         except Exception as error:
             print(error)
                 
-     
     return render_template("login.html")
 
 @auth.route("/logout")
 def loginout():
-    return "<p>Loginout</p>"
+    return render_template("index.html")
 
 
 @auth.route('/sign-up', methods=['GET', 'POST'])
@@ -58,7 +57,9 @@ def sign_up():
         elif len(password1) < 7:
             flash("Password must be at least 7 characters.", category="error")
         else: 
-            flash("Account created!", category="success")
+            flash("Konto skapat, Välkommen! " + username, category="success")
+            return redirect(url_for("views.home"))
+
 
         try:
                 cur = conn.cursor()
