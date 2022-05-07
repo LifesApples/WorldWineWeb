@@ -1,4 +1,4 @@
-import imp
+import this
 from flask import Blueprint, render_template
 from db_connection import *
 
@@ -10,6 +10,7 @@ def home():
 
 
 @views.route('/products')
+
 def product():
     print("Products found!")
     cur = conn.cursor()
@@ -28,6 +29,7 @@ def product():
     ##print("Returned: ", records)
     conn.commit()
     return render_template("products.html", content=records)
+
 
 
 

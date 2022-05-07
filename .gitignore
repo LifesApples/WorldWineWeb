@@ -367,3 +367,5 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,java,python,intellij,macos,windows
+WWW/website/__pycache__/__init__.cpython-310.pyc
+WWW/website/__pycache__/__init__.cpython-310.pyc
