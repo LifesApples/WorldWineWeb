@@ -3,6 +3,7 @@ import os
 import requests
 import json
 import urllib.request, urllib.error, urllib.parse
+from db_connection import *
 
 from urllib.parse import urlencode, urlunparse,urlparse
 from urllib.request import urlopen, Request
@@ -20,6 +21,7 @@ class scraper:
 
     def searchPics(pname, producer, bottletype):
         seartext = pname+" "+producer+" "+bottletype
+        print("Text: " + seartext)
         count = 4
         sear=seartext.strip()
         sear=sear.replace(' ','+')
@@ -41,6 +43,10 @@ class scraper:
                 break
             except:
                 pass
+    
+
+    searchPics("Sju komma tvaan" , "Ljus lager", " Starkare lager")
+    
     """""
     for a in soup.find_all("a",{"class":"iusc"}):
         print(a)
