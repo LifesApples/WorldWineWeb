@@ -4,7 +4,7 @@ def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'WWW'
 
-
+    # Importerar allt från template, static o.s.v.
     from .views import views
     from .auth import auth
     ##from .scraper import scraper

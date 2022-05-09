@@ -44,7 +44,6 @@
                     </form>
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                       <li class="nav-item">
-                      <a class="nav-item nav-link" id="logout" href="/logout">Logga ut</a>
                       <a class="nav-item nav-link" id="login" href="/login">Logga in</a>
                       <a class="nav-item nav-link" id="signUp" href="/sign-up">Registera</a>
                       </li>
@@ -53,24 +52,24 @@
                 </div>
             </nav>
 
-            <div class="container-fluid">
-                <div class="row">
-                  <div class="col-md">
-                  </div>
-                  <div class="col-md-8">
-                    <h2>Produkter</h2>
-                    {% for columns in rows %}
-                    <!-- Går igenom alla tabeller i listan och skriver ut bilder, titel och beskrivning-->
-                    <div class="card" style="width: 18rem;">
-                      <img src="{{columns[8]}}" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <h5 class="card-title">{{columns[2]}}</h5>
-                        <p class="card-text">{{columns[21]}}</p>
-                        <a href="/products/{{productid}}" class="btn btn-primary">Go somewhere</a>
-                      </div>
+            <div class="col-md-8">
+              <h2>Produkter</h2>
+              {% for columns in rows %}
+              <!-- Går igenom alla tabeller i listan -->
+                {% if columns[0] == productid %}
+                <!-- if sats som kollar så att id i db är detsamma som id på URL -->
+                  <div class="card" style="width: 18rem;">
+                    <img src="{{columns[8]}}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">{{columns[2]}}</h5>
+                      <p class="card-text">{{columns[21]}}</p>
                     </div>
-                    {% endfor %}
-
+                  </div>
+                {% endif %}
+              {% endfor %}
+            </div>
+                    
+                    
                   </div>
                   <div class="col-md">
                   </div>

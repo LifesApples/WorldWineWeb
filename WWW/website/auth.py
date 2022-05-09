@@ -2,11 +2,15 @@ from unicodedata import name
 from flask import Blueprint, render_template, request, flash
 from db_connection import *
 
+# Länkar auth.py med main.py.
 auth = Blueprint('auth', __name__)
 
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
+    """
+    Hämtar alla fält och försöker logga in användaren
+    """
     if request.method == 'POST':
         username = request.form.get("username")
         print("Name was: " + username)
@@ -36,15 +40,21 @@ def login():
 
 @auth.route("/logout")
 def loginout():
-     cur = conn.cursor()
-     insert_script = 'SET search_path = "WorldWineWeb", am4404, public; Select getaproducts(10)'
-     cur.execute(insert_script)
-     print("Returned products: " + str(cur.rowcount))
-     return "<p>Loginout</p>"
+    """
+    Loggar ut användaren
+    """
+    cur = conn.cursor()
+    insert_script = 'SET search_path = "WorldWineWeb", am4404, public; Select getaproducts(10)'
+    cur.execute(insert_script)
+    print("Returned products: " + str(cur.rowcount))
+    return render_template("index.html")
 
 
 @auth.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
+    """
+    Hämtar all information från fältet och registerar användaren i db.
+    """
     print("Tried registering")
     if request.method == 'POST':
         username = request.form.get("username")
