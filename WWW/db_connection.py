@@ -1,3 +1,5 @@
+#Kopplar all info till db och deklareras i veriablen.
+
 import psycopg2
 
 
