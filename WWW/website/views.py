@@ -66,21 +66,3 @@ def product():
 
 
 
-@views.route("/prodcts/<product_id>")
-def movie_details(movie_id): 
-    '''
-    Route för att hämta information och tillgänglighet för film. - ALi
-    '''
-    """
-    country = (request.args.get('country') or "se").lower() # Hämtar land från get parametern or default se(Sverige)
-    ssl._create_default_https_context =  ssl._create_unverified_context
-    conn = requests.urlopen(get_movie_URL(movie_id))
-    json_data = json.loads(conn.read())
-    network = rq.request('GET', url, headers=headers, params=get_query_string(movie_id, country))
-    conn2 = requests.urlopen(get_movie_credits(movie_id))
-    conn3 = requests.urlopen(get_recommendations(movie_id))
-    json_data2 = json.loads(conn2.read())
-    json_data3 = json.loads(conn3.read())
-    return render_template('movie.html', data=json_data, network_data=json.loads(network.text), data2=json_data2, data3=json_data3, country=country)
-    """
-
