@@ -5,10 +5,20 @@ from db_connection import *
 # Definierar views som blueprints för att vi ska kunna använda det som templates.
 views = Blueprint('views', __name__)
 
-# Routar hem.
+# Routar ålderkontroll.
 @views.route('/')
+def start():
+    return render_template("age_control.html")
+
+# Routar hem.
+@views.route('/home')
 def home():
     return render_template("index.html")
+
+@views.route('/decline')
+def decline():
+    return render_template("decline.html")
+
 
 @views.route("/products/<productid>")
 def show_product(productid):
