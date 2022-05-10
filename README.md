@@ -27,11 +27,11 @@ Starta: main.py (Som kör programmet)
 
 ---
 ## Gruppmedlemmar:
-Nima Faghihi
-Azam Suleiman Arale
-Klaudia Daria Kazimierski
-Christopher Mols
-Jakob Wind
+- Nima Faghihi
+- Azam Suleiman Arale
+- Klaudia Daria Kazimierski
+- Christopher Mols
+- Jakob Wind
 ---
 ## Copyright
 
