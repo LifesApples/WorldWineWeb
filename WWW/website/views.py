@@ -19,27 +19,25 @@ def home():
 def decline():
     return render_template("decline.html")
 
-
+# Routar produktsida 
 @views.route("/products/<productid>")
 def show_product(productid):
-    """Displays a single article (loaded from a text file)."""
     cur = conn.cursor()
     insert_script = 'SET search_path = "WorldWineWeb", am4404, public; Select getproducts(5)'
     cur.execute(insert_script)
     records = cur.fetchall()
     data = []
     data = list(records)
-    columns = []
     rows = []
+    #Skapar en lista i en lista där den innre listan innehåller värden för 1 produkt.
     for i in enumerate(data):
-        ##Adds product attributes to a list
+        #Formatterar texten från databasen
         splitColumns = str(i).split(",")
-        splitColumns = [j.replace('"', '') for j in splitColumns] # remove quote from each element
-        splitColumns = [j.replace('(', '') for j in splitColumns] # remove quote from each element
-        splitColumns = [j.replace(')', '') for j in splitColumns] # remove quote from each element
-        splitColumns = [j.replace("'", '') for j in splitColumns] # remove quote from each element
-        print("Check: ",splitColumns)
-        ##Adds the product with its attributes to a new row
+        splitColumns = [j.replace('"', '') for j in splitColumns]
+        splitColumns = [j.replace('(', '') for j in splitColumns] 
+        splitColumns = [j.replace(')', '') for j in splitColumns] 
+        splitColumns = [j.replace("'", '') for j in splitColumns]
+        #Lägger till listan i en lista för att skapa en produktkatalog
         rows.append(splitColumns)
       
     conn.commit()
@@ -47,7 +45,7 @@ def show_product(productid):
     return render_template("product_page.html", productid = productid, rows=rows)
 
 
-
+# Routar produktkatalogen 
 @views.route('/products')
 def product():
     print("Products found!")
@@ -57,17 +55,15 @@ def product():
     records = cur.fetchall()
     data = []
     data = list(records)
-    columns = []
     rows = []
     for i in enumerate(data):
-        ##Adds product attributes to a list
+        ##Lägger till värden för en produkt i en lista
         splitColumns = str(i).split(",")
-        splitColumns = [j.replace('"', '') for j in splitColumns] # remove quote from each element
-        splitColumns = [j.replace('(', '') for j in splitColumns] # remove quote from each element
-        splitColumns = [j.replace(')', '') for j in splitColumns] # remove quote from each element
-        splitColumns = [j.replace("'", '') for j in splitColumns] # remove quote from each element
-        print("Check: ",splitColumns)
-        ##Adds the product with its attributes to a new row
+        splitColumns = [j.replace('"', '') for j in splitColumns]
+        splitColumns = [j.replace('(', '') for j in splitColumns]
+        splitColumns = [j.replace(')', '') for j in splitColumns]
+        splitColumns = [j.replace("'", '') for j in splitColumns] 
+        ###Lägger till listan i en lista
         rows.append(splitColumns)
       
     conn.commit()
