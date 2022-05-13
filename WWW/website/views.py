@@ -15,6 +15,7 @@ def start():
 def home():
     return render_template("index.html")
 
+# Routar till info om varför man inte kommer åt hemsidan
 @views.route('/decline')
 def decline():
     return render_template("decline.html")
