@@ -56,13 +56,13 @@
               <h2>Produkter</h2>
               {% for columns in rows %}
               <!-- Går igenom alla tabeller i listan -->
-                {% if columns[0] == productid %}
+                {% if columns[1] == productid %}
                 <!-- if sats som kollar så att id i db är detsamma som id på URL -->
                   <div class="card" style="width: 18rem;">
-                    <img src="{{columns[8]}}" class="card-img-top" alt="...">
+                    <img src="{{columns[5]}}" class="card-img-top" alt="...">
                     <div class="card-body">
                       <h5 class="card-title">{{columns[2]}}</h5>
-                      <p class="card-text">{{columns[21]}}</p>
+                      <p class="card-text">{{columns[25]}}</p>
                     </div>
                   </div>
                 {% endif %}

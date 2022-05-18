@@ -20,7 +20,7 @@
                         <a class="nav-link active" aria-current="page" href="#">Start</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" href="#">Katalog</a>
+                        <a class="nav-link" href="/products">Produkter</a>
                       </li>
                       <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -37,8 +37,8 @@
                         <a class="nav-link" href="omoss.html">Om oss</a>
                       </li>
                     </ul>
-                    <form class="d-flex">
-                      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <form method="POST" class="d-flex">
+                      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="searchfunction">
                       <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -52,6 +52,7 @@
                 </div>
             </nav>
 
+          
             {% with messages = get_flashed_messages(with_categories=true) %} {% if
               messages %} {% for category, message in messages %} {% if category ==
               'error' %}
@@ -71,6 +72,8 @@
               {% endif %} {% endfor %} {% endif %} {% endwith %}
           
               <div class="container">{% block content %} {% endblock %}</div>
+
+              
 
             
             <footer class="bg-light text-center text-lg-start">
