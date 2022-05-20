@@ -1,3 +1,90 @@
+#jumbo{
+    height:300px;
+    background-image: url(images/glasses.jpg);
+    padding-top: 50px;
+    background-position: center;
+    background-size: 100%;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#jumbo >h2 {
+    text-align: center;
+    font-size: 48px;
+    padding-bottom: 5px;
+    color: aliceblue;
+    
+}
+
+#profile_icon{
+    height: 40px;
+    width: 40px;
+}
+
+#logout, #login, #signUp{
+    border: solid rgb(47, 58, 96) 2px ;
+    border-radius: 15px;
+    margin: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+
+    display: inline-block;
+}
+
+#search_tab_container{
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+#parent_nav{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.search_btn{
+    border-radius: 10px;
+    background-color: rgb(66, 97, 124);
+    color: white;
+    width: 130px;
+}
+#age_control_container{
+    width: 500px;
+    padding-inline: 50px;
+    margin: auto;
+}
+/*
+@media screen and (min-width:800px){
+    .nav_container{
+        margin-bottom: -20px;
+        padding-bottom: 10px;
+        
+        width: 100%;
+    
+    }
+    #web_logo{
+        width: 100px;
+        height: 100px;
+        margin-top: -15px;
+    }
+} */
+.nav_container{
+    margin-bottom: -20px;
+    padding-bottom: 10px;
+    
+    width: 85%;
+    display: flex;
+    justify-content: center;
+
+}
+
+#web_logo{
+    width: 130px;
+    height: 130px;
+    margin-top: -15px;
+}
+
 .card-img-top {
     width: 100%;
     height: 15vw;
