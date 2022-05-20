@@ -8,6 +8,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: inset 0 0 15px #ffffff;
 }
 
 #jumbo >h2 {
@@ -15,22 +16,13 @@
     font-size: 48px;
     padding-bottom: 5px;
     color: aliceblue;
-    
 }
 
 #profile_icon{
-    height: 40px;
-    width: 40px;
-}
-
-#logout, #login, #signUp{
-    border: solid rgb(47, 58, 96) 2px ;
-    border-radius: 15px;
+    height: 30px;
+    width: 30px;
     margin: 5px;
-    padding-left: 15px;
-    padding-right: 15px;
-
-    display: inline-block;
+    cursor: pointer;
 }
 
 #search_tab_container{
@@ -45,7 +37,8 @@
 }
 .search_btn{
     border-radius: 10px;
-    background-color: rgb(66, 97, 124);
+    border: none;
+    background-color: #212224;
     color: white;
     width: 130px;
 }
@@ -69,6 +62,33 @@
         margin-top: -15px;
     }
 } */
+
+.dropdown {
+    display: inline-block;
+    position: relative;
+  }
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: aliceblue;
+    width: 330%;
+    overflow: auto;
+    box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.4);
+  }
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  .dropdown-content a {
+    display: block;
+    color: #000000;
+    padding: 5px;
+    text-decoration: none;
+  }
+  .dropdown-content a:hover {
+    color: #FFFFFF;
+    background-color: #212224;
+  }
+
 .nav_container{
     margin-bottom: -20px;
     padding-bottom: 10px;
@@ -78,7 +98,9 @@
     justify-content: center;
 
 }
-
+#nav_air{
+    width: 10%;
+}
 #web_logo{
     width: 130px;
     height: 130px;
@@ -103,4 +125,7 @@ footer{
     float: left;
     width: 100%;
     margin-top: 5rem;
+    background-color: #212224;
+    color: aliceblue;
+    justify-content: center;
 }
