@@ -11,6 +11,10 @@ views = Blueprint('views', __name__)
 def start():
     return render_template("age_control.html")
 
+@views.route("/comments")
+def comments():
+    return render_template("comments.html")
+
 # Routar hem.
 @views.route('/home', methods=['GET', 'POST'])
 def home():
