@@ -10,12 +10,4 @@ conn = psycopg2.connect(host = 'pgserver.mau.se',
 
 cur = conn.cursor()   
 
-def searchAll(productname):
-    cur = conn.cursor()
-    cur.execute("select * from product where productname LIKE '%s'%' " % (productname))
-    records = cur.fetchall()
-    cur.close()
-    conn.commit()
-    conn.close()
-    return records
 
