@@ -1,7 +1,7 @@
-from unicodedata import name
+import this
+from unittest import result
 from flask import Blueprint, render_template, request, flash
 from db_connection import *
-
 
 # Länkar comments.py med main.py.
 comments = Blueprint('comments', __name__)
@@ -30,5 +30,6 @@ def addcoments():
                 cur.close()
             if cur is not None:
                 conn.close()
-                
+            
+    conn.commit()       
     return render_template("comments.html")
