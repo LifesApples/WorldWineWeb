@@ -11,7 +11,7 @@ comments = Blueprint('comments', __name__)
 def addcoments():
     """försöker lägga till comment i databas"""
     if request.method == 'POST':
-        kommentar = request.form.get("kommentar")
+        comment = request.form.get("kommentar")
         rating = request.form.get("rating")
 
         try:
