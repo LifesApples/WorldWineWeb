@@ -9,5 +9,3 @@ conn = psycopg2.connect(host = 'pgserver.mau.se',
                 password = 'zxd0hy59')
 
 cur = conn.cursor()   
-
-
