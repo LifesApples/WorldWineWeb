@@ -23,6 +23,7 @@ class scraper:
     #Funktion som söker efter bilder och uppdaterar databasen med URL till sökreusltatet/bilden.
     def searchpics(productname,bottletextshort,volume,categorylevel1):
         
+        
         #Formaterar och tar bort extra tecken från texten som kommer från funktionens parametrar
         nonformatedtext = '%s %s %s %s' % (productname,volume,bottletextshort,categorylevel1)
         nonformatedtext = str(nonformatedtext).encode('utf-8') #Formaterar kod så att å,ä,ö blir läsbart. 
@@ -45,14 +46,14 @@ class scraper:
         for i in wow:
             try:
                  url = eval(i['m'])['murl']
-                 print(url)
+                 print("Link: ", url)
                  return url
             except:
                pass
 
     
     #Loopar 500 gånger eller tills alla url fält har ett värde (en url). 
-    count = 500 
+    count = 0 
     for i in range(count):
         #Hämtar en rad från product tabellen där url är tomt
         cur = conn.cursor()
