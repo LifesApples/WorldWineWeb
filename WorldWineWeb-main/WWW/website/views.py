@@ -11,15 +11,12 @@ views = Blueprint('views', __name__)
 def start():
     return render_template("age_control.html")
 
-<<<<<<< HEAD:WorldWineWeb-main/WWW/website/views.py
 @views.route('/omoss.html')
 def omoss():
     return render_template("omoss.html")
-=======
 @views.route("/comments")
 def comments():
     return render_template("comments.html")
->>>>>>> klaubranch:WWW/website/views.py
 
 # Routar hem.
 @views.route('/home', methods=['GET', 'POST'])
