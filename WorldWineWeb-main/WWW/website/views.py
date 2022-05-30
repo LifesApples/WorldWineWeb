@@ -11,9 +11,40 @@ views = Blueprint('views', __name__)
 def start():
     return render_template("age_control.html")
 
-@views.route('/omoss.html')
+@views.route('/omoss', methods=['GET', 'POST'])
 def omoss():
-    return render_template("omoss.html")
+
+        if request.method == 'POST':
+            search_product = request.form.get("searchfunction")
+            print(search_product)
+            print("Products found!")
+            cur = conn.cursor()
+            insert_script = "SET search_path = 'WorldWineWeb', am4404, public; select searchProduct('%s')" % (search_product)
+            print(insert_script)
+            cur.execute(insert_script)
+            records = cur.fetchall()
+            data = []
+            data = list(records)
+            rows = []
+            for i in enumerate(data):
+                ##Lägger till värden för en produkt i en lista
+                splitColumns = str(i).split(",")
+                splitColumns = [j.replace('"', '') for j in splitColumns]
+                splitColumns = [j.replace('(', '') for j in splitColumns]
+                splitColumns = [j.replace(')', '') for j in splitColumns]
+                splitColumns = [j.replace("'", '') for j in splitColumns] 
+                ###Lägger till listan i en lista
+                rows.append(splitColumns)
+            
+            conn.commit()
+    
+        
+            if search_product != '':
+                print(rows)
+                return render_template("products.html", rows=rows)
+
+        return render_template("omoss.html")
+
 @views.route("/comments")
 def comments():
     return render_template("comments.html")
@@ -89,8 +120,9 @@ def show_product(productid):
 
 
 # Routar produktkatalogen 
-@views.route('/products')
+@views.route('/products', methods=['GET', 'POST'])
 def product():
+    
     print("Products found!")
     cur = conn.cursor()
     insert_script = 'SET search_path = "WorldWineWeb", am4404, public; Select getproducts(20)'
