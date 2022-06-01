@@ -67,14 +67,49 @@
                   </div>
                 {% endif %}
               {% endfor %}
-              
             </div>
-              <input type="text" id="comment-box" placeholder="Enter comment">
-              <button> <a href="/comments" class="btn btn-info opacity-80 btn-lg">posta</a> </button>
-              <ul id="unordered">
+<<<<<<< Updated upstream
+                    
+                    
+                  </div>
+                  <div class="col-md">
+                  </div>
+                </div>
+=======
+            
+            
+
+            {% block content %}
+            <form method="POST">
+                <h3 align="center">Kommentera</h3>
+                <div class="form-group">
+                    <label for="comment">text</label>
+                    <input type="text" class="form-control" id="comment" name="comment" placeholder="skriv en kommentar"/>
+
+                    <label for="anv">text</label>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="anv"/>
+
+                    <label for="prodid">text</label>
+                    <input type="text" class="form-control" id="productid" name="productid" placeholder="produktidbara siffror"/>
+
+                    <label for="commentid">text</label>
+                    <input type="text" class="form-control" id="commentid" name="commentid" placeholder="commentid bara siffror"/>
+
+                    <label for="rating">text</label>
+                    <input type="text" class="form-control" id="rating" name="rating" placeholder="rating bara siffror"/>
+
+                    <button type="submit" value="submit" class="btn btn-primary">kyssmig</button>
+                </div>
+
+            </form>
+            
+            {% endblock %}
             <div>
 
+>>>>>>> Stashed changes
             </div>
+
+
             
             <footer class="bg-light text-center text-lg-start">
                 <div class="container p-4">
