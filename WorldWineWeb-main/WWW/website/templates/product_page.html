@@ -16,20 +16,66 @@
                       <h5 class="card-title">{{columns[2]}}</h5>
                       <p class="card-text">{{columns[25]}}</p>
                     </div>
-                </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="row container-fluid" style="padding:0 50px;">
+          <div class="xs-col-12">
+              <form action="#" id="new-movie-form">
+                  <fieldset>
+                      <legend>Lägg en kommentar</legend>
+                      <div class="form-group">
+                          <label for="title">Text:</label>
+                          <input type="text" class="form-control" id="title" placeholder="Titel här...">
+                      </div>
+  
+                      <div class="form-group">
+                          <label for="grade">Betyg:</label>
+                          <select id="grade" class="form-control">
+                              <option value="" selected>Välj betyg här...</option>
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              <option value="4">4</option>
+                              <option value="5">5</option>
+                          </select>
+                      </div>
+  
+                      <div class="form-group mt-2">
+                          <button id="save-movie" class="btn btn-success">
+                              Kommentera
+                          </button>
+                      </div>
+                  </fieldset>
+              </form>
+  
+              <hr>
+  
+              <h2>Kommentarsfält</h2>
+              <ul id="comments">
+                {% for columns in rows %}
+                <!-- Går igenom alla tabeller i listan -->
+        
+                <div id="product_card" class="card" style="width: 16rem; height: 25rem;">
+                  
+                  <div class="card-body">
+                    <img src="{{columns[8]}}" class="card-img-top" alt="...">
+                    <!-- Visar data från listan i index 8,2 och 21. -->
+                    <p>{{columns[2]}}</h5>
+                  </div>
+                </div>
+                {% endfor %}
+  
+              </ul>
+          </div>
+      </div>
+        
       </div>
       {% endif %}
     {% endfor %}
   </div>
-  <div>
-    <input type="text" id="comment-box" placeholder="Enter comment">
-    <button> <a href="/comments" class="btn btn-info opacity-80 btn-lg">posta</a> </button>
-    <ul id="unordered">
-  </div>
+
 
 {% endblock %}
 

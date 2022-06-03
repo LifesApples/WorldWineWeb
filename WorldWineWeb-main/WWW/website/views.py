@@ -52,11 +52,11 @@ def comments():
 # Routar hem.
 @views.route('/home', methods=['GET', 'POST'])
 def home():
+    print("Home route was called")
 
     if request.method == 'POST':
         search_product = request.form.get("searchfunction")
         print(search_product)
-        print("Products found!")
         cur = conn.cursor()
         insert_script = "SET search_path = 'WorldWineWeb', am4404, public; select searchProduct('%s')" % (search_product)
         print(insert_script)
@@ -94,6 +94,7 @@ def decline():
 # Routar produktsida 
 @views.route("/products/<productid>")
 def show_product(productid):
+    print("produktid i route produktsida" + productid)
     cur = conn.cursor()
     insert_script = "SET search_path = 'WorldWineWeb', am4404, public; select * from product where productid ='%s'" % (productid)
     cur.execute(insert_script)
@@ -115,7 +116,15 @@ def show_product(productid):
         rows.append(splitColumns)
       
     
-                     
+    cur = conn.cursor()
+    insert_script1 = "SET search_path = 'WorldWineWeb', am4404, public; select getproductcomments('%s')" % (productid)
+    cur.execute(insert_script1)
+    print(insert_script1 + "här")
+    records = cur.fetchall()
+    for comments in records:
+        print(comments)
+    conn.commit()
+                
     return render_template("product_page.html", productid = productid, rows=rows)
 
 
