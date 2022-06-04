@@ -1,0 +1,141 @@
+#jumbo{
+    height:300px;
+    background-image: url(images/glasses.jpg);
+    padding-top: 50px;
+    background-position: center;
+    background-size: 100%;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: inset 0 0 15px #ffffff;
+}
+
+#jumbo >h2 {
+    text-align: center;
+    font-size: 48px;
+    padding-bottom: 5px;
+    color: aliceblue;
+}
+
+
+#profile_icon{
+    height: 30px;
+    width: 30px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+#search_tab_container{
+    padding-left: 15px;
+    padding-right: 15px;
+}
+#all_products_display{
+    margin:auto;
+    max-width: 1200px;
+    justify-self: center;
+}
+#product_card{
+    margin: 15px 15px 15px 15px;
+    box-shadow: 0px 0px 5px #21222450;
+}
+#parent_nav{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.search_btn{
+    border-radius: 10px;
+    border: none;
+    background-color: #212224;
+    color: white;
+    width: 130px;
+}
+#age_control_container{
+    width: 500px;
+    padding-inline: 50px;
+    margin: auto;
+}
+/*
+@media screen and (min-width:800px){
+    .nav_container{
+        margin-bottom: -20px;
+        padding-bottom: 10px;
+        
+        width: 100%;
+    
+    }
+    #web_logo{
+        width: 100px;
+        height: 100px;
+        margin-top: -15px;
+    }
+} */
+
+.dropdown {
+    display: inline-block;
+    position: relative;
+  }
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: aliceblue;
+    width: 330%;
+    overflow: auto;
+    box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.4);
+  }
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  .dropdown-content a {
+    display: block;
+    color: #000000;
+    padding: 5px;
+    text-decoration: none;
+  }
+  .dropdown-content a:hover {
+    color: #FFFFFF;
+    background-color: #212224;
+  }
+
+.nav_container{
+    margin-bottom: -20px;
+    padding-bottom: 10px;
+    
+    width: 85%;
+    display: flex;
+    justify-content: center;
+
+}
+#nav_air{
+    width: 10%;
+}
+#web_logo{
+    width: 130px;
+    height: 130px;
+    margin-top: -15px;
+}
+
+.card-img-top {
+    width: 100%;
+    height: 10vw;
+    object-fit: contain;
+    padding: 10px;
+}
+
+.card{
+    padding: 10px;
+    margin-top: 5rem;
+    margin-left: 5rem;
+    float: left;
+}
+
+footer{
+    float: left;
+    width: 100%;
+    margin-top: 5rem;
+    background-color: #212224;
+    color: aliceblue;
+    justify-content: center;
+}
+
