@@ -1,6 +1,6 @@
 import this
 from unittest import result
-from flask import Blueprint, render_template, request, flash
+from flask import Blueprint, render_template, request, flash, redirect, url_for
 from db_connection import *
 
 # Definierar views som blueprints för att vi ska kunna använda det som templates.
@@ -11,55 +11,79 @@ views = Blueprint('views', __name__)
 def start():
     return render_template("age_control.html")
 
+@views.route('/omoss', methods=['GET', 'POST'])
+def omoss():
+
+        if request.method == 'POST':
+            search_product = request.form.get("searchfunction")
+            print(search_product)
+            print("Products found!")
+            cur = conn.cursor()
+            insert_script = "SET search_path = 'WorldWineWeb', am4404, public; select searchProduct('%s')" % (search_product)
+            print(insert_script)
+            cur.execute(insert_script)
+            records = cur.fetchall()
+            data = []
+            data = list(records)
+            rows = []
+            for i in enumerate(data):
+                ##Lägger till värden för en produkt i en lista
+                splitColumns = str(i).split(",")
+                splitColumns = [j.replace('"', '') for j in splitColumns]
+                splitColumns = [j.replace('(', '') for j in splitColumns]
+                splitColumns = [j.replace(')', '') for j in splitColumns]
+                splitColumns = [j.replace("'", '') for j in splitColumns] 
+                ###Lägger till listan i en lista
+                rows.append(splitColumns)
+            
+            conn.commit()
+    
+        
+            if search_product != '':
+                print(rows)
+                return render_template("products.html", rows=rows)
+
+        return render_template("omoss.html")
+
+@views.route("/comments")
+def comments():
+    return render_template("comments.html")
+
 # Routar hem.
 @views.route('/home', methods=['GET', 'POST'])
 def home():
+    print("Home route was called")
 
     if request.method == 'POST':
-        searchfunction = request.form.get("Searchfunction")
-        print("Sökfunktionen: " + str(searchfunction))
+        search_product = request.form.get("searchfunction")
+        print(search_product)
+        cur = conn.cursor()
+        insert_script = "SET search_path = 'WorldWineWeb', am4404, public; select searchProduct('%s')" % (search_product)
+        print(insert_script)
+        cur.execute(insert_script)
+        records = cur.fetchall()
+        data = []
+        data = list(records)
+        rows = []
+        for i in enumerate(data):
+            ##Lägger till värden för en produkt i en lista
+            splitColumns = str(i).split(",")
+            splitColumns = [j.replace('"', '') for j in splitColumns]
+            splitColumns = [j.replace('(', '') for j in splitColumns]
+            splitColumns = [j.replace(')', '') for j in splitColumns]
+            splitColumns = [j.replace("'", '') for j in splitColumns] 
+            ###Lägger till listan i en lista
+            rows.append(splitColumns)
+        
+        conn.commit()
+   
+    
+        if search_product != '':
+            print(rows)
+            return render_template("products.html", rows=rows)
+            
 
-        try:
-            cur = conn.cursor()
-            insert_script= "SET search_path = 'WorldWineWeb', am4404, public; select * from product where productname LIKE '%s'" % (searchfunction)
-            print("Testing: " + insert_script)
-            cur.execute(insert_script)
-            rows = []
-            rows = cur.fetchall()
-            conn.commit()
-            print("Results: " + cur.rowcount)
-            print(rows[0])
 
-
-            if cur.rowcount == 1:
-                    return render_template("product_page.html", productid = rows[0], rows=rows)
-            else:
-                    return render_template("products.html", rows=rows)
-        except:
-            pass
-
-    """
-            if request.method == 'POST':
-            searchfunction = request.form.get("searchfunction")
-            print("Sökfunktion: " + searchfunction)
-
-            try:
-                
-                insert_script = "SET search_path = 'WorldWineWeb', am4404, public; select * from product where productname LIKE '&s' '%'"  %(searchterm)
-                data = (username,password)
-                print("Testing: " + insert_script)
-                cur.execute(insert_script,data)
-                print("The number of parts: ", cur.rowcount)
-                conn.commit()
-
-                if cur.rowcount < 1:
-                    flash("Wrong username or password", category="error")
-                else:
-                    flash("Login sucessful!", category="success")
-                
-            except Exception as error:
-                print(error)
-    """        
     return render_template("index.html")
 
 # Routar till info om varför man inte kommer åt hemsidan
@@ -68,66 +92,46 @@ def decline():
     return render_template("decline.html")
 
 # Routar produktsida 
-@views.route("/products/<productid>", methods=['GET', 'POST'])
+@views.route("/products/<productid>")
 def show_product(productid):
-    if request.method == 'GET':
-        print("hej jag kör")
-        getid = "SET search_path = 'WorldWineWeb', am4404, public; SELECT commentid FROM comment ORDER BY commentid DESC LIMIT 1;"
-        try:
-            cur2 = conn.cursor()
-
-            cur2.execute(getid)
-            id=cur2.fetchone()
-            id=id[0]
-            id=id+1
-            conn.commit()
-            print(id)
-        except Exception as error:
-            print(error)
-
-        comment = request.args.get("comment")
-        rating = request.args.get("rating")
-        productid = request.args.get("productid")
-        username = request.args.get("username")
-        commentid = request.args.get("commentid")
-
-        print ("test:",comment,rating,productid,username,commentid)
-        try:
-            cur3 = conn.cursor()
-            insert_script = "SET search_path = 'WorldWineWeb', am4404, public; select createcomment('%s','%s','%s','%s','%s')" % ("kalle1", "username1",39,id,6)
-            cur3.execute(insert_script)
-            conn.commit()
-            conn.close()
-         
-        except Exception as error:
-            print(error)
-        return render_template("product_page.html", productid = productid)    
-    else:
-        cur = conn.cursor()
-        insert_script = "SET search_path = 'WorldWineWeb', am4404, public; select * from product where productid ='%s'" % (productid)
-        cur.execute(insert_script)
-        print(insert_script + "här")
-        records = cur.fetchall()
-        conn.commit()
-        data = []
-        data = list(records)
-        rows = []
-        #Skapar en lista i en lista där den innre listan innehåller värden för 1 produkt.
-        for i in enumerate(data):
-            #Formatterar texten från databasen
-            splitColumns = str(i).split(",")
-            splitColumns = [j.replace('"', '') for j in splitColumns]
-            splitColumns = [j.replace('(', '') for j in splitColumns] 
-            splitColumns = [j.replace(')', '') for j in splitColumns] 
-            splitColumns = [j.replace("'", '') for j in splitColumns]
-            #Lägger till listan i en lista för att skapa en produktkatalog
-            rows.append(splitColumns)
-            return render_template("product_page.html", productid = productid, rows=rows)
+    print("produktid i route produktsida" + productid)
+    cur = conn.cursor()
+    insert_script = "SET search_path = 'WorldWineWeb', am4404, public; select * from product where productid ='%s'" % (productid)
+    cur.execute(insert_script)
+    print(insert_script + "här")
+    records = cur.fetchall()
+    conn.commit()
+    data = []
+    data = list(records)
+    rows = []
+    #Skapar en lista i en lista där den innre listan innehåller värden för 1 produkt.
+    for i in enumerate(data):
+        #Formatterar texten från databasen
+        splitColumns = str(i).split(",")
+        splitColumns = [j.replace('"', '') for j in splitColumns]
+        splitColumns = [j.replace('(', '') for j in splitColumns] 
+        splitColumns = [j.replace(')', '') for j in splitColumns] 
+        splitColumns = [j.replace("'", '') for j in splitColumns]
+        #Lägger till listan i en lista för att skapa en produktkatalog
+        rows.append(splitColumns)
+      
+    
+    cur = conn.cursor()
+    insert_script1 = "SET search_path = 'WorldWineWeb', am4404, public; select getproductcomments('%s')" % (productid)
+    cur.execute(insert_script1)
+    print(insert_script1 + "här")
+    records = cur.fetchall()
+    for comments in records:
+        print(comments)
+    conn.commit()
+                
+    return render_template("product_page.html", productid = productid, rows=rows)
 
 
 # Routar produktkatalogen 
-@views.route('/products')
+@views.route('/products', methods=['GET', 'POST'])
 def product():
+    
     print("Products found!")
     cur = conn.cursor()
     insert_script = 'SET search_path = "WorldWineWeb", am4404, public; Select getproducts(20)'
@@ -148,6 +152,104 @@ def product():
       
     conn.commit()
     return render_template("products.html", rows=rows)
+
+@views.route('/getbeers', methods=['GET', 'POST'])
+def getbeers():
+    
+    print("Products found!")
+    cur = conn.cursor()
+    insert_script = 'SET search_path = "WorldWineWeb", am4404, public; Select getbeers(20)'
+    cur.execute(insert_script)
+    records = cur.fetchall()
+    data = []
+    data = list(records)
+    rows = []
+    for i in enumerate(data):
+        ##Lägger till värden för en produkt i en lista
+        splitColumns = str(i).split(",")
+        splitColumns = [j.replace('"', '') for j in splitColumns]
+        splitColumns = [j.replace('(', '') for j in splitColumns]
+        splitColumns = [j.replace(')', '') for j in splitColumns]
+        splitColumns = [j.replace("'", '') for j in splitColumns] 
+        ###Lägger till listan i en lista
+        rows.append(splitColumns)
+      
+    conn.commit()
+    return render_template("beer.html", rows=rows)
+
+@views.route('/getwine', methods=['GET', 'POST'])
+def getwine():
+    
+    print("Products found!")
+    cur = conn.cursor()
+    insert_script = 'SET search_path = "WorldWineWeb", am4404, public; Select getwine(20)'
+    cur.execute(insert_script)
+    records = cur.fetchall()
+    data = []
+    data = list(records)
+    rows = []
+    for i in enumerate(data):
+        ##Lägger till värden för en produkt i en lista
+        splitColumns = str(i).split(",")
+        splitColumns = [j.replace('"', '') for j in splitColumns]
+        splitColumns = [j.replace('(', '') for j in splitColumns]
+        splitColumns = [j.replace(')', '') for j in splitColumns]
+        splitColumns = [j.replace("'", '') for j in splitColumns] 
+        ###Lägger till listan i en lista
+        rows.append(splitColumns)
+      
+    conn.commit()
+    return render_template("wine.html", rows=rows)
+
+@views.route('/getspirits', methods=['GET', 'POST'])
+def getspirits():
+    
+    print("Products found!")
+    cur = conn.cursor()
+    insert_script = 'SET search_path = "WorldWineWeb", am4404, public; Select getspirits(20)'
+    cur.execute(insert_script)
+    records = cur.fetchall()
+    data = []
+    data = list(records)
+    rows = []
+    for i in enumerate(data):
+        ##Lägger till värden för en produkt i en lista
+        splitColumns = str(i).split(",")
+        splitColumns = [j.replace('"', '') for j in splitColumns]
+        splitColumns = [j.replace('(', '') for j in splitColumns]
+        splitColumns = [j.replace(')', '') for j in splitColumns]
+        splitColumns = [j.replace("'", '') for j in splitColumns] 
+        ###Lägger till listan i en lista
+        rows.append(splitColumns)
+      
+    conn.commit()
+    return render_template("spirits.html", rows=rows)
+
+@views.route('/getnonalcoholics', methods=['GET', 'POST'])
+def getnonalcoholics():
+    
+    print("Products found!")
+    cur = conn.cursor()
+    insert_script = 'SET search_path = "WorldWineWeb", am4404, public; Select getnonalcoholics(20)'
+    cur.execute(insert_script)
+    records = cur.fetchall()
+    data = []
+    data = list(records)
+    rows = []
+    for i in enumerate(data):
+        ##Lägger till värden för en produkt i en lista
+        splitColumns = str(i).split(",")
+        splitColumns = [j.replace('"', '') for j in splitColumns]
+        splitColumns = [j.replace('(', '') for j in splitColumns]
+        splitColumns = [j.replace(')', '') for j in splitColumns]
+        splitColumns = [j.replace("'", '') for j in splitColumns] 
+        ###Lägger till listan i en lista
+        rows.append(splitColumns)
+      
+    conn.commit()
+    return render_template("nonalcoholic.html", rows=rows)
+
+    
 
 
 
