@@ -1,0 +1,82 @@
+{% extends "base.html" %} {% block title%}{% for columns in rows %}{{columns[2]}}{% endfor %}{% endblock %}
+
+{% block content %}
+<div class="container h-100">
+    {% for columns in rows %}
+    <!-- Går igenom alla tabeller i listan -->
+      {% if columns[1] == productid %}
+      <!-- if sats som kollar så att id i db är detsamma som id på URL -->
+        <div class="row align-items-center h-100">
+            <div class="col-6 mx-auto">
+                <div class="card h-100 border-primary justify-content-center">
+                    <div>
+                      <img src="{{columns[5]}}" class="card-img-top" alt="..." style="width: 18rem;">
+                      <div class="card-body">
+                    <div class="row">
+                      <h5 class="card-title">{{columns[2]}}</h5>
+                      <p class="card-text">{{columns[25]}}</p>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row container-fluid" style="padding:0 50px;">
+          <div class="xs-col-12">
+              <form action="#" id="new-movie-form">
+                  <fieldset>
+                      <legend>Lägg en kommentar</legend>
+                      <div class="form-group">
+                          <label for="title">Text:</label>
+                          <input type="text" class="form-control" id="title" placeholder="Titel här...">
+                      </div>
+  
+                      <div class="form-group">
+                          <label for="grade">Betyg:</label>
+                          <select id="grade" class="form-control">
+                              <option value="" selected>Välj betyg här...</option>
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              <option value="4">4</option>
+                              <option value="5">5</option>
+                          </select>
+                      </div>
+  
+                      <div class="form-group mt-2">
+                          <button id="save-movie" class="btn btn-success">
+                              Kommentera
+                          </button>
+                      </div>
+                  </fieldset>
+              </form>
+  
+              <hr>
+  
+              <h2>Kommentarsfält</h2>
+              <ul id="comments">
+                {% for columns in rows %}
+                <!-- Går igenom alla tabeller i listan -->
+        
+                <div id="product_card" class="card" style="width: 16rem; height: 25rem;">
+                  
+                  <div class="card-body">
+                    <img src="{{columns[8]}}" class="card-img-top" alt="...">
+                    <!-- Visar data från listan i index 8,2 och 21. -->
+                    <p>{{columns[2]}}</h5>
+                  </div>
+                </div>
+                {% endfor %}
+  
+              </ul>
+          </div>
+      </div>
+        
+      </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+
+{% endblock %}
+
+

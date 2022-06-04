@@ -1,0 +1,27 @@
+{% extends "base.html" %} {% block title%}Produkter{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+      <div id="jumbo"> <h2> Öl </h2> </div>
+
+      <div id="all_products_display" class="col-md-12">
+        {% for columns in rows %}
+        <!-- Går igenom alla tabeller i listan -->
+
+        <div id="product_card" class="card" style="width: 16rem; height: 25rem;">
+          
+          <div class="card-body">
+            <img src="{{columns[8]}}" class="card-img-top" alt="...">
+            <!-- Visar data från listan i index 8,2 och 21. -->
+            <h5 class="card-title">{{columns[2]}}</h5>
+            <p id="product_desc" class="card-text">{{columns[21]}}</p>
+            <a href="/products/{{columns[1]}}" class="btn btn-primary">Test</a>
+          </div>
+        </div>
+        {% endfor %}
+
+      </div>
+    </div>
+</div>
+{% endblock %}
