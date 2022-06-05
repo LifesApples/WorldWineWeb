@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang = "sv">
+  <head>
+    <meta charset="utf-8">
+    <title>World Wine Web</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="/static/style.css" rel="stylesheet">
+    <link rel="shortcut icon" href="/static/images/favicon.ico">
+  </head>
+   
+  <body>
+      <main>
+        <nav id="parent_nav" class="navbar navbar-expand-lg navbar-light bg-light py-4">
+          <div id="nav_bar" class="nav_container">
+
+            <a href="/products"> <img id="web_logo" src="/static/images/WWW_logo.png" alt="logo"></a> 
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Katalog</a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Kategori
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/omoss">Om oss</a>
+                </li>
+              </ul>
+              
+              <form id="search_tab_container" class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Sök här..." aria-label="Search">
+                <button class="search_btn" type="submit">Sök</button>
+              </form>
+
+              <!-- My profile card collapsible-->
+              <div id="login_list" class="dropdown">
+                <img id="profile_icon" src="/static/images/my_profile_icon.png">
+                <div class="dropdown-content">
+                <a id="login" href="/login">Logga in</a>
+                <a id="logout" href="/logout">Logga ut</a>
+                <a id="signUp" href="/sign-up">Registrera</a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </nav>
+
+        <div>
+          {% for columns in rows %}
+          <!-- Går igenom alla tabeller i listan -->
+            {% if columns[1] == productid %}
+            <!-- if sats som kollar så att id i db är detsamma som id på URL -->
+              <h1 id="detailed_jumbo" >{{columns[2]}}</h1>
+              
+              <div id="main_product_container">
+                <div>
+                 <img id="main_prod_img" src="{{columns[5]}}" alt="beverage image"> 
+                </div>
+
+                <div class="card-body">
+                  <ul id="main_prod_desc">
+                    <h3 style="text-align: center;"> {{columns[2]}}</h3>
+                    <hr class="dashed">
+                    <br>
+                    <li> Typ: {{columns[18]}}, {{columns[19]}}</li>
+                    <li>volym: ~{{columns[3]}}ml</li>
+                    <li> alkoholhalt: {{columns[13]}}%</li>
+                    <li> Medel pris: {{columns[14]}}kr</li>
+                    <hr class="dashed">
+                    <li> {{columns[25]}}</li>
+                    <li> {{columns[24]}}</li>
+                    <div class="share">
+                      <a href="#"> <img src="/static/images/fb_icon.png"> </a>
+                      <a href="#"><img src="/static/images/ig_icon.png"> </a>
+                      <a href="#"> <img src="/static/images/dsc_icon.png"> </a>
+                      <a href="#"> <img src="/static/images/mg_icon.png"> </a>
+                      <a href="#"> <img src="/static/images/viber_icon.png"> </a>
+                    
+                    </div>
+                  </ul>
+                  
+                </div>
+                
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+
+          
+        <footer >
+          <div class="container p-4">
+            <div class="row">
+              <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+                <h5 class="text-uppercase">Kontakta oss!</h5>
+        
+                <p>
+                  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
+                  molestias. Fugiat pariatur maxime quis culpa corporis vitae repudiandae
+                  aliquam voluptatem veniam, est atque cumque eum delectus sint!
+                </p>
+              </div>
+
+              <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+                <h5 class="text-uppercase">Användarvillkor</h5>
+        
+                <p>
+                  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
+                  molestias. Fugiat pariatur maxime quis culpa corporis vitae repudiandae
+                  aliquam voluptatem veniam, est atque cumque eum delectus sint!
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="text-center p-3">
+            © 2022 Copyright:
+            <a class="text-dark" href="#">World Wine Web</a>
+          </div>
+        </footer>
+        
+      </main>             
+  </body>
+</html>
